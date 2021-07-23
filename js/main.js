@@ -56,12 +56,10 @@ const createHeader = (param) => {
   if (param.header.menu) {
     const nav = getElement('nav', ['menu-list']);
     const allNavLink = param.header.menu.map(item => {
-      const navLink = getElement('a', ['menu-link'], {
+      return getElement('a', ['menu-link'], {
         href: item.link,
         textContent: item.title,
       });
-      
-      return navLink;
     })
     nav.append(...allNavLink);
     wrapper.append(nav);
@@ -134,6 +132,44 @@ const createMain = ({title, main: {genre, rating, description, trailer}}) => {
     ['main-title', 'animated', 'fadeInRight'],
     {textContent: title}
   ));
+  
+  if (description) {
+    content.append(getElement('p',
+      ['main-description', 'animated', 'fadeInRight'],
+      {textContent: description}
+    ));
+  }
+  
+  if (trailer) {
+    const youTubeLink = getElement('a',
+      ['button', 'animated', 'fadeInRight', 'youtube-modal'],
+      {
+        href: trailer,
+        textContent: 'Смотреть трейлер',
+      }
+    );
+    
+    const youTubeImgLink = getElement('a',
+      ['play', 'youtube-modal'],
+      {
+        href: trailer,
+        ariaLabel: 'Смотреть трейлер',
+      }
+    );
+    
+    const iconPlay = getElement('img',
+      ['play-img'],
+      {
+        src: 'img/play.svg',
+        alt: '',
+        ariaHidden: true,
+      }
+    );
+    
+    content.append(youTubeLink);
+    youTubeImgLink.append(iconPlay);
+    wrapper.append(youTubeImgLink);
+  }
   
   return main;
   
