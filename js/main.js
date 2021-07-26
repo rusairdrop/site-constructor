@@ -89,7 +89,7 @@ const createHeader = ({title, header: {logo, menu, social}}) => {
   return header;
 }
 
-const createMain = ({title, main: {genre, rating, description, trailer}}) => {
+const createMain = ({title, main: {genre, rating, description, trailer, slider}}) => {
   
   const main = getElement('main');
   
@@ -172,6 +172,44 @@ const createMain = ({title, main: {genre, rating, description, trailer}}) => {
     wrapper.append(youTubeImgLink);
   }
   
+  if (slider) {
+    const sliderBlock = getElement('div', ['series']);
+    const swiperBlock = getElement('div', ['swiper-container']);
+    const swiperWrapper = getElement('div', ['swiper-wrapper']);
+    const arrow = getElement('button', ['arrow']);
+    
+    const slides = slider.map(item => {
+      
+      const swiperSlide = getElement('div', ['swiper-slide']);
+      const card = getElement('figure', ['card']);
+      const cardImage = getElement('img', ['card-img'], {
+        src: item.img,
+        // alt: (item.title ? item.title + ' ' : '') + (item.subtitle ? item.subtitle : '')
+        alt: ((item.title || '') + ' ' + (item.subtitle || '')).trim()
+      })
+      
+      card.append(cardImage);
+      
+      
+      if (item.title || item.subtitle) {
+        const cardDescription = getElement('figcaption', ['card-description']);
+        cardDescription.innerHTML = `
+          ${item.title ? `<p class="card-title">${item.title}</p>` : ''}
+          ${item.subtitle ? `<p class="card-subtitle">${item.subtitle}</p>` : ''}
+        `;
+        
+        card.append(cardDescription)
+      }
+      swiperSlide.append(card);
+      return swiperSlide;
+    });
+    swiperWrapper.append(...slides);
+    swiperBlock.append(swiperWrapper);
+    sliderBlock.append(swiperBlock, arrow);
+    
+    container.append(sliderBlock);
+  }
+  
   return main;
   
 };
@@ -251,5 +289,27 @@ movieConstructor('.app', {
     rating: '8',
     description: 'Ведьмак Геральт, мутант и убийца чудовищ, на своей верной лошади по кличке Плотва путешествует по Континенту. За тугой мешочек чеканных монет этот мужчина избавит вас от всякой настырной нечисти — хоть от чудищ болотных, оборотней и даже заколдованных принцесс.',
     trailer: 'https://www.youtube.com/watch?v=P0oJqfLzZzQ',
-  }
+    slider: [
+      {
+        img: 'witcher/series/series-1.jpg',
+        title: 'Начало конца',
+        subtitle: 'Серия №1',
+      },
+      {
+        img: 'witcher/series/series-2.jpg',
+        title: 'Четыре марки',
+        subtitle: 'Серия №2',
+      },
+      {
+        img: 'witcher/series/series-3.jpg',
+        title: 'Предательская луна',
+        subtitle: 'Серия №3',
+      },
+      {
+        img: 'witcher/series/series-4.jpg',
+        title: 'Банкеты, ублюдки и похороны',
+        subtitle: 'Серия №4',
+      },
+    ]
+  },
 });
