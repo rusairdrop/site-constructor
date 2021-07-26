@@ -212,25 +212,6 @@ const createMain = ({title, main: {genre, rating, description, trailer, slider}}
   
 };
 
-
-// <footer className="footer">
-//   <div className="container">
-//     <div className="footer-content">
-//       <div className="left">
-//         <span className="copyright">© 2020 The Witcher. All right reserved.</span>
-//
-//       </div>
-//       <div className="right">
-//         <nav className="footer-menu">
-//           <a href="#" className="footer-link">Privacy Policy</a>
-//           <a href="#" className="footer-link">Terms of Service</a>
-//           <a href="#" className="footer-link">Legal</a>
-//         </nav>
-//       </div>
-//     </div>
-//   </div>
-// </footer>
-
 const createFooter = ({footer: {copyright, menu}}) => {
   
   const footer = getElement('footer', ['footer']);
