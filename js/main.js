@@ -16,12 +16,6 @@
 		}
 	});
 	
-	const menuButton = document.querySelector('.menu-button');
-	const menu = document.querySelector('.header');
-	menuButton.addEventListener('click', function () {
-		menuButton.classList.toggle('menu-button-active');
-		menu.classList.toggle('header-active');
-	})
 */
 const getElement = (tagName, classNames, attributes) => {
   const element = document.createElement(tagName);
@@ -63,6 +57,13 @@ const createHeader = ({title, header: {logo, menu, social}}) => {
     })
     nav.append(...allNavLink);
     wrapper.append(nav);
+    
+    const menuBtn = getElement('button', ['menu-button']);
+    menuBtn.addEventListener('click', () => {
+      menuBtn.classList.toggle('menu-button-active');
+      wrapper.classList.toggle('header-active');
+    });
+    container.append(menuBtn);
   }
   
   if (social) {
@@ -180,10 +181,10 @@ const movieConstructor = (selector, options) => {
   const app = document.querySelector(selector);
   app.classList.add('body-app');
   
-  if(options.favicon) {
+  if (options.favicon) {
     const index = options.favicon.lastIndexOf('.');
     const type = options.favicon.substring(index + 1);
-  
+    
     const favicon = getElement('link', null, {
       rel: 'icon',
       href: options.favicon,

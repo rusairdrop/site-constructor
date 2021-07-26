@@ -11,11 +11,7 @@
 	position: fixed;
 	background: #000;
 	text-align: center;
-
 }
-
-
-
 #youtube-modal-container {
 	z-index: 999;
 	position: fixed;
