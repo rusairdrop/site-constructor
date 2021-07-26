@@ -180,6 +180,19 @@ const movieConstructor = (selector, options) => {
   const app = document.querySelector(selector);
   app.classList.add('body-app');
   
+  if(options.favicon) {
+    const index = options.favicon.lastIndexOf('.');
+    const type = options.favicon.substring(index + 1);
+  
+    const favicon = getElement('link', null, {
+      rel: 'icon',
+      href: options.favicon,
+      type: 'image/' + (type === 'svg' ? 'image/svg-xml' : type),
+    });
+    
+    document.head.append(favicon);
+  }
+  
   app.style.backgroundImage = options.background ?
     `url('${options.background}')` : '';
   
@@ -192,12 +205,12 @@ const movieConstructor = (selector, options) => {
   if (options.main) {
     app.append(createMain(options))
   }
-  
 };
 
 movieConstructor('.app', {
   title: 'Ведьмак',
   background: 'witcher/background.jpg',
+  favicon: 'witcher/logo.png',
   header: {
     logo: 'witcher/logo.png',
     social: [
