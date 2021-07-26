@@ -1,22 +1,3 @@
-/*
-	new Swiper('.swiper-container', {
-		loop: true,
-		navigation: {
-			nextEl: '.arrow',
-		},
-		breakpoints: {
-			320: {
-				slidesPerView: 1,
-				spaceBetween: 20
-			},
-			541: {
-				slidesPerView: 2,
-				spaceBetween: 40
-			}
-		}
-	});
-	
-*/
 const getElement = (tagName, classNames, attributes) => {
   const element = document.createElement(tagName);
   
@@ -208,6 +189,23 @@ const createMain = ({title, main: {genre, rating, description, trailer, slider}}
     sliderBlock.append(swiperBlock, arrow);
     
     container.append(sliderBlock);
+    
+    new Swiper(swiperBlock, {
+      loop: true,
+      navigation: {
+        nextEl: arrow,
+      },
+      breakpoints: {
+        320: {
+          slidesPerView: 1,
+          spaceBetween: 20
+        },
+        541: {
+          slidesPerView: 2,
+          spaceBetween: 40
+        }
+      }
+    });
   }
   
   return main;
