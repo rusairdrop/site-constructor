@@ -212,10 +212,70 @@ const createMain = ({title, main: {genre, rating, description, trailer, slider}}
   
 };
 
+
+// <footer className="footer">
+//   <div className="container">
+//     <div className="footer-content">
+//       <div className="left">
+//         <span className="copyright">© 2020 The Witcher. All right reserved.</span>
+//
+//       </div>
+//       <div className="right">
+//         <nav className="footer-menu">
+//           <a href="#" className="footer-link">Privacy Policy</a>
+//           <a href="#" className="footer-link">Terms of Service</a>
+//           <a href="#" className="footer-link">Legal</a>
+//         </nav>
+//       </div>
+//     </div>
+//   </div>
+// </footer>
+
+const createFooter = ({footer: {copyright, menu}}) => {
+  
+  const footer = getElement('footer', ['footer']);
+  const container = getElement('div', ['container']);
+  footer.append(container);
+  const footerContent = getElement('div', ['footer-content'])
+  container.append(footerContent);
+  
+  if (copyright) {
+    const footerLeft = getElement('div', ['left']);
+    footerContent.append(footerLeft);
+    const copyrightBlock = getElement('span', ['copyright'], {
+      textContent: copyright,
+    })
+    footerLeft.append(copyrightBlock);
+  }
+  
+  if (menu) {
+    const footerRight = getElement('div', ['right']);
+    footerContent.append(footerRight);
+    const footerMenu = getElement('nav', ['footer-menu']);
+    const footerMenuItem = menu.map(item => {
+      return getElement('a', ['footer-link'], {
+        href: item.link,
+        textContent: item.title,
+      })
+    })
+    footerMenu.append(...footerMenuItem);
+    footerRight.append(footerMenu);
+  }
+  
+  return footer;
+}
+
 const movieConstructor = (selector, options) => {
   
   const app = document.querySelector(selector);
   app.classList.add('body-app');
+  
+  app.style.color = options.fontColor || '';
+  app.style.backgroundColor = options.backgroundColor || '';
+  
+  if (options.subColor) {
+    document.documentElement.style.setProperty('--sub-color', options.subColor);
+  }
   
   if (options.favicon) {
     const index = options.favicon.lastIndexOf('.');
@@ -242,12 +302,19 @@ const movieConstructor = (selector, options) => {
   if (options.main) {
     app.append(createMain(options))
   }
+  
+  if (options.footer) {
+    app.append(createFooter(options))
+  }
 };
 
 movieConstructor('.app', {
   title: 'Ведьмак',
   background: 'witcher/background.jpg',
   favicon: 'witcher/logo.png',
+  fontColor: '#ffffff',
+  backgroundColor: '#141218',
+  subColor: '#9D2929',
   header: {
     logo: 'witcher/logo.png',
     social: [
@@ -310,4 +377,21 @@ movieConstructor('.app', {
       },
     ]
   },
+  footer: {
+    copyright: '© 2020 The Witcher. All right reserved.',
+    menu: [
+      {
+        link: '#',
+        title: 'Privacy Policy',
+      },
+      {
+        link: '#',
+        title: 'Terms of Service',
+      },
+      {
+        link: '#',
+        title: 'Legal',
+      },
+    ],
+  }
 });
