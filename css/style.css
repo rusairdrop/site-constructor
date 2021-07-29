@@ -26,7 +26,7 @@ img {
 
 }
 
-.header {
+.header-wrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -233,7 +233,7 @@ img {
 
 .swiper-container {
     max-width: 420px;
-    margin-left: 0px;
+    margin-left: 0;
 }
 
 .footer {
@@ -300,8 +300,8 @@ img {
         content: '';
         display: block;
         position: absolute;
-        top: 0px;
-        left: 0px;
+        top: 0;
+        left: 0;
         width: 30px;
         height: 2px;
         background-color: #fff;
@@ -313,8 +313,8 @@ img {
         content: '';
         display: block;
         position: absolute;
-        top: 0px;
-        left: 0px;
+        top: 0;
+        left: 0;
         width: 30px;
         height: 2px;
         background-color: #fff;

@@ -1,4 +1,4 @@
-const getElement = (tagName, classNames, attributes) => {
+const createElement = (tagName, classNames, attributes) => {
   const element = document.createElement(tagName);
   
   if (classNames) {
@@ -15,12 +15,12 @@ const getElement = (tagName, classNames, attributes) => {
 }
 
 const createHeader = ({title, header: {logo, menu, social}}) => {
-  const header = getElement('header');
-  const container = getElement('div', ['container']);
-  const wrapper = getElement('div', ['header']);
+  const header = createElement('header');
+  const container = createElement('div', ['container']);
+  const wrapper = createElement('div', ['header-wrapper']);
   
   if (logo) {
-    const logoElem = getElement('img', ['logo'], {
+    const logoElem = createElement('img', ['logo'], {
       src: logo,
       alt: 'Логотип ' + title,
     });
@@ -29,9 +29,9 @@ const createHeader = ({title, header: {logo, menu, social}}) => {
   }
   
   if (menu) {
-    const nav = getElement('nav', ['menu-list']);
+    const nav = createElement('nav', ['menu-list']);
     const allNavLink = menu.map(item => {
-      return getElement('a', ['menu-link'], {
+      return createElement('a', ['menu-link'], {
         href: item.link,
         textContent: item.title,
       });
@@ -39,7 +39,7 @@ const createHeader = ({title, header: {logo, menu, social}}) => {
     nav.append(...allNavLink);
     wrapper.append(nav);
     
-    const menuBtn = getElement('button', ['menu-button']);
+    const menuBtn = createElement('button', ['menu-button']);
     menuBtn.addEventListener('click', () => {
       menuBtn.classList.toggle('menu-button-active');
       wrapper.classList.toggle('header-active');
@@ -48,10 +48,10 @@ const createHeader = ({title, header: {logo, menu, social}}) => {
   }
   
   if (social) {
-    const socialWrapper = getElement('div', ['social']);
+    const socialWrapper = createElement('div', ['social']);
     const allSocial = social.map(item => {
-      const socialLink = getElement('a', ['social-link']);
-      socialLink.append(getElement('img', [], {
+      const socialLink = createElement('a', ['social-link']);
+      socialLink.append(createElement('img', [], {
         src: item.image,
         alt: item.title,
       }));
@@ -72,17 +72,17 @@ const createHeader = ({title, header: {logo, menu, social}}) => {
 
 const createMain = ({title, main: {genre, rating, description, trailer, slider}}) => {
   
-  const main = getElement('main');
+  const main = createElement('main');
   
-  const container = getElement('div', ['container']);
+  const container = createElement('div', ['container']);
   main.append(container);
-  const wrapper = getElement('div', ['main-content']);
+  const wrapper = createElement('div', ['main-content']);
   container.append(wrapper);
-  const content = getElement('div', ['content']);
+  const content = createElement('div', ['content']);
   wrapper.append(content);
   
   if (genre) {
-    const genreSpan = getElement('span',
+    const genreSpan = createElement('span',
       ['genre', 'animated', 'fadeInRight'],
       {textContent: genre}
     );
@@ -91,14 +91,14 @@ const createMain = ({title, main: {genre, rating, description, trailer, slider}}
   }
   
   if (rating) {
-    const ratingBlock = getElement('div', ['genre', 'animated', 'fadeInRight']);
-    const ratingStars = getElement('div', ['rating-stars']);
-    const ratingNumber = getElement('div', ['rating-number'], {
+    const ratingBlock = createElement('div', ['genre', 'animated', 'fadeInRight']);
+    const ratingStars = createElement('div', ['rating-stars']);
+    const ratingNumber = createElement('div', ['rating-number'], {
       textContent: `${rating}/10`
     });
     
     for (let i = 0; i < 10; i++) {
-      const star = getElement('img', ['star'], {
+      const star = createElement('img', ['star'], {
         alt: i ? '' : `Рейтинг ${rating} из 10`,
         src: i < rating ? 'img/star.svg' : 'img/star-o.svg'
       });
@@ -110,20 +110,20 @@ const createMain = ({title, main: {genre, rating, description, trailer, slider}}
     content.append(ratingBlock);
   }
   
-  content.append(getElement('h1',
+  content.append(createElement('h1',
     ['main-title', 'animated', 'fadeInRight'],
     {textContent: title}
   ));
   
   if (description) {
-    content.append(getElement('p',
+    content.append(createElement('p',
       ['main-description', 'animated', 'fadeInRight'],
       {textContent: description}
     ));
   }
   
   if (trailer) {
-    const youTubeLink = getElement('a',
+    const youTubeLink = createElement('a',
       ['button', 'animated', 'fadeInRight', 'youtube-modal'],
       {
         href: trailer,
@@ -131,7 +131,7 @@ const createMain = ({title, main: {genre, rating, description, trailer, slider}}
       }
     );
     
-    const youTubeImgLink = getElement('a',
+    const youTubeImgLink = createElement('a',
       ['play', 'youtube-modal'],
       {
         href: trailer,
@@ -139,7 +139,7 @@ const createMain = ({title, main: {genre, rating, description, trailer, slider}}
       }
     );
     
-    const iconPlay = getElement('img',
+    const iconPlay = createElement('img',
       ['play-img'],
       {
         src: 'img/play.svg',
@@ -154,16 +154,16 @@ const createMain = ({title, main: {genre, rating, description, trailer, slider}}
   }
   
   if (slider) {
-    const sliderBlock = getElement('div', ['series']);
-    const swiperBlock = getElement('div', ['swiper-container']);
-    const swiperWrapper = getElement('div', ['swiper-wrapper']);
-    const arrow = getElement('button', ['arrow']);
+    const sliderBlock = createElement('div', ['series']);
+    const swiperBlock = createElement('div', ['swiper-container']);
+    const swiperWrapper = createElement('div', ['swiper-wrapper']);
+    const arrow = createElement('button', ['arrow']);
     
     const slides = slider.map(item => {
       
-      const swiperSlide = getElement('div', ['swiper-slide']);
-      const card = getElement('figure', ['card']);
-      const cardImage = getElement('img', ['card-img'], {
+      const swiperSlide = createElement('div', ['swiper-slide']);
+      const card = createElement('figure', ['card']);
+      const cardImage = createElement('img', ['card-img'], {
         src: item.img,
         // alt: (item.title ? item.title + ' ' : '') + (item.subtitle ? item.subtitle : '')
         alt: ((item.title || '') + ' ' + (item.subtitle || '')).trim()
@@ -173,7 +173,7 @@ const createMain = ({title, main: {genre, rating, description, trailer, slider}}
       
       
       if (item.title || item.subtitle) {
-        const cardDescription = getElement('figcaption', ['card-description']);
+        const cardDescription = createElement('figcaption', ['card-description']);
         cardDescription.innerHTML = `
           ${item.title ? `<p class="card-title">${item.title}</p>` : ''}
           ${item.subtitle ? `<p class="card-subtitle">${item.subtitle}</p>` : ''}
@@ -214,27 +214,27 @@ const createMain = ({title, main: {genre, rating, description, trailer, slider}}
 
 const createFooter = ({footer: {copyright, menu}}) => {
   
-  const footer = getElement('footer', ['footer']);
-  const container = getElement('div', ['container']);
+  const footer = createElement('footer', ['footer']);
+  const container = createElement('div', ['container']);
   footer.append(container);
-  const footerContent = getElement('div', ['footer-content'])
+  const footerContent = createElement('div', ['footer-content'])
   container.append(footerContent);
   
   if (copyright) {
-    const footerLeft = getElement('div', ['left']);
+    const footerLeft = createElement('div', ['left']);
     footerContent.append(footerLeft);
-    const copyrightBlock = getElement('span', ['copyright'], {
+    const copyrightBlock = createElement('span', ['copyright'], {
       textContent: copyright,
     })
     footerLeft.append(copyrightBlock);
   }
   
   if (menu) {
-    const footerRight = getElement('div', ['right']);
+    const footerRight = createElement('div', ['right']);
     footerContent.append(footerRight);
-    const footerMenu = getElement('nav', ['footer-menu']);
+    const footerMenu = createElement('nav', ['footer-menu']);
     const footerMenuItem = menu.map(item => {
-      return getElement('a', ['footer-link'], {
+      return createElement('a', ['footer-link'], {
         href: item.link,
         textContent: item.title,
       })
@@ -262,7 +262,7 @@ const movieConstructor = (selector, options) => {
     const index = options.favicon.lastIndexOf('.');
     const type = options.favicon.substring(index + 1);
     
-    const favicon = getElement('link', null, {
+    const favicon = createElement('link', null, {
       rel: 'icon',
       href: options.favicon,
       type: 'image/' + (type === 'svg' ? 'image/svg-xml' : type),
@@ -289,7 +289,7 @@ const movieConstructor = (selector, options) => {
   }
 };
 
-movieConstructor('.app', {
+movieConstructor('#app', {
   title: 'Ведьмак',
   background: 'witcher/background.jpg',
   favicon: 'witcher/logo.png',
