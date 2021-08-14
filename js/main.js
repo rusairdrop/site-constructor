@@ -246,7 +246,7 @@ const createFooter = ({footer: {copyright, menu}}) => {
   return footer;
 }
 
-const movieConstructor = (selector, options) => {
+const siteConstructor = (selector, options) => {
   
   const app = document.querySelector(selector);
   app.classList.add('body-app');
@@ -289,7 +289,7 @@ const movieConstructor = (selector, options) => {
   }
 };
 
-movieConstructor('#app', {
+siteConstructor('#app', {
   title: 'Ведьмак',
   background: 'witcher/background.jpg',
   favicon: 'witcher/logo.png',
